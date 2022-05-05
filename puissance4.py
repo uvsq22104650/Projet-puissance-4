@@ -42,10 +42,19 @@ def qui_commence():
 
 
 #################################################
+#La Fonction afficher_grille renvoie une grille standard
+def afficher_grille () :
+    for i in range (6) :
+        print (grille[i])
+
+
+#################################################
 # Fonctions de sauvegarde et chargement de partie
 #################################################
 def sauv () :
     """sauvegarde la configuration du jeu dans un fichier sauvegarde"""
     fic = open ("sauvegarde","w")
+    fic.write ()
 
-
+def load () :
+    
