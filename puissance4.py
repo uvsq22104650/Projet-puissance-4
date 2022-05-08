@@ -15,10 +15,6 @@ import turtle
 nb_lignes = 6
 nb_colonnes = 7
 
-
-
-
-
 ################################
 # Creation de la grille
 ################################
@@ -57,4 +53,53 @@ def sauv () :
     fic.write ()
 
 def load () :
-    
+    """Charge la dernière partie enregistré"""
+
+    return    
+##################################################
+# Fonction d'annulation de coup
+#################################################
+def cancel(self,row) :
+    """Annule le dernier coup qui a été joué"""
+    rank = 1
+    while self.grid[rank][row] != 0:
+            rank += 1
+    rank = rank - 1
+    self.grid[rank][row] = 0
+
+#################################################
+# Fonction dessiner grille 
+#################################################
+def dessiner_grille () :
+    turtle.up()
+    turtle.goto(x_base,y_base)
+    turtle.down()
+    # traits horizontaux :
+    for i in range(8):
+        turtle.fd(7*largeur)
+        turtle.up()
+        turtle.goto(x_base,y_base+i*largeur)
+        turtle.down()
+    # traits verticaux :
+    turtle.up()
+    turtle.goto(x_base,y_base)
+    turtle.setheading(90)
+    turtle.down()
+    for i in range(9):
+        turtle.forward(6*largeur)
+        turtle.up()
+        turtle.goto(x_base+i*largeur,y_base)
+        turtle.down()
+    # affiche le numéro des colonnes sous la grille :
+    for i in range(7):
+        turtle.up()
+        turtle.goto(x_base+i*largeur+largeur//2,y_base-largeur//2)
+        turtle.down()
+        turtle.write(str(i))
+
+############################################################
+# Programme principal
+###########################################################
+largeur=60
+x_base=-220
+y_base=-150
