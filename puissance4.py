@@ -2,17 +2,8 @@
 # importation des librairie
 ############################
 
-import tkinter as tk
-import os,random
-import turtle
+import os
 from turtle import *
-
-############################
-# Constantes
-############################
-
-nb_lignes = 6
-nb_colonnes = 7
 
 ################################
 # Creation de la grille
@@ -21,8 +12,7 @@ nb_colonnes = 7
 """un 0 indique une case vide, un 1 un pion ROUGE et un 2 un BLEU"""
 grille=[7*[0], 7*[0], 7*[0], 7*[0], 7*[0], 7*[0]]
 
-"""joueur_tour donne le prochain joueur qui va jouer 1 pour ROUGE et un 2 un BLEU"""
-joueur_tour = 1
+
 ################################
 # Fonctions de choix des joueurs
 #################################
@@ -362,9 +352,10 @@ def pions_alignes():
     # si on n'a rien trouvé on retourne 0 :
     return trouve
 
-    # La fonction tester_saisie demande au joueur de saisir un nombre entre 0 et 6,
-# et réitère la demande tant que la valeur saisie n'ets pas un entier dans cet intervale
+# ############################################################################
 #Source du code http://fractale.gecif.net/python/puissance_4/
+# La fonction tester_saisie demande au joueur de saisir un nombre entre 0 et 6,
+# et réitère la demande tant que la valeur saisie n'ets pas un entier dans cet intervale
 def tester_saisie():
     global grille,joueur_courant,tab_colonne
     if joueur_courant==1:
@@ -376,21 +367,13 @@ def tester_saisie():
     # Les messages d'erreurs orientant l'utilisateur sont affichés sur la sortie standard (sans provoquer d'erreur)
     while not saisie_correct:
         s_colonne=input("%s : entrez la colonne où jouer (de 0 à 6) :" % joueur)
-#################################################
-# Fonction d'arrêt de la partie
-#Source du code http://fractale.gecif.net/python/puissance_4/
-#################################################
-    if s_colonne.upper()=='F':
- #quitte le programme et ferme la fenêtre de la tortue si l'utilisateur saise f (comme fin)
+
+        if s_colonne.upper()=='F':
+            # quitte le programme et ferme la fenêtre de la tortue si l'utilisateur saise f (comme fin)
             print("Fin du programme car l'utilisateur a saisie F")
             bye()
             exit()
-
-#################################################
-# Fonctions de sauvegarde et chargement de partie
-#Source du code http://fractale.gecif.net/python/puissance_4/
-#################################################
-    elif s_colonne.upper()=='S':
+        elif s_colonne.upper()=='S':
             # sauvegarde la sérialisation de la grille dans un fichier texte :
             fic=open('grille.txt','w')
             # convertit l'objet liste grile en chaine de caractères (sérialistation) :
@@ -403,7 +386,7 @@ def tester_saisie():
             fic.close()
             print("\nL'état de la partie vient d'être enregistré dans le fichier grille.txt mais la partie continue.")
             print("C'est encore au joueur %s à jouer." % joueur)
-    elif s_colonne.upper()=='R':
+        elif s_colonne.upper()=='R':
             if os.path.exists('grille.txt'):
                 # restaure la grille et le joueur courant à partir du fichier texte grille.txt :
                 fic=open('grille.txt','r')
@@ -429,7 +412,8 @@ def tester_saisie():
                         if grille[i][j]!=0:
                             tab_colonne[j]+=1
                             dessiner_pion(j,5-i,grille[i][j])
-                        print('\n\n\n\n\n\n=============================================')
+
+                print('\n\n\n\n\n\n=============================================')
                 print(' PUISSANCE 4 : FINIR UNE PARTIE')
                 print('=============================================')
                 if joueur_courant==1:
@@ -444,25 +428,20 @@ def tester_saisie():
                 print("Avant de vouloir restaurer une partie avec la commande R il faut en sauvegarder une avec la commande S.")
 
         # teste si la chaine saise est un entier :
-    elif not s_colonne.isdigit():
+        elif not s_colonne.isdigit():
             print("Erreur de saise : la valeur entrée par le joueur %s n'est pas un nombre entier. Recommencez." % joueur)
         # teste si la valeur numérique est comprise entre 0 et 6 :
-    elif int(s_colonne)<0 or int(s_colonne)>6:
+        elif int(s_colonne)<0 or int(s_colonne)>6:
             print("Erreur de saise : la valeur numérique entrée par le joueur %s n'est pas comprise entre 0 et 6. Recommencez." % joueur)
-    else:
+        else:
             saisie_correct=True
     # la chaine s_colonne est un chiffre entre 0 et 6 : on la convertit en entier et on la renvoie
     return int(s_colonne)
 
 
-##################################################
-# Fonction d'annulation de coup
-#################################################
-
 # ############################################################################
-# La fonction jouer() demande au joueur courant dans quelle colonne (de 0 à 6) il veut jouer
 #Source du code http://fractale.gecif.net/python/puissance_4/
-
+# La fonction jouer() demande au joueur courant dans quelle colonne (de 0 à 6) il veut jouer
 def jouer():
     global joueur_courant
     joueur=["ROUGE","BLEU"]
@@ -476,11 +455,6 @@ def jouer():
     dessiner_pion(colonne,tab_colonne[colonne],joueur_courant)
     tab_colonne[colonne]+=1
     print('\nLe joueur %s vient de jouer dans la colonne %d :' % (joueur[joueur_courant-1],colonne))
-    
-    
-
- 
-
 # ############################################################################
 # La fonction dessiner_grille() dessine une grille vide dans la fenêtre de la tortue
 #Source du code http://fractale.gecif.net/python/puissance_4/
