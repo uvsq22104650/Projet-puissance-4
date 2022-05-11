@@ -6,8 +6,6 @@ import tkinter as tk
 import os,random
 import turtle
 
-
-
 ############################
 # Constantes
 ############################
@@ -18,6 +16,7 @@ nb_colonnes = 7
 ################################
 # Creation de la grille
 ################################
+#Source du code http://fractale.gecif.net/python/puissance_4/
 """un 0 indique une case vide, un 1 un pion ROUGE et un 2 un BLEU"""
 grille=[7*[0], 7*[0], 7*[0], 7*[0], 7*[0], 7*[0]]
 """nbr_colonnes mémorise le nombre de pions dans la colonne"""
@@ -29,6 +28,7 @@ joueur_tour = 1
 #################################
 
 # La fonction qui_commence() demande à l'utilisateur le joueur qui commence (ROUGE ou BLEU)
+#Source du code http://fractale.gecif.net/python/puissance_4/
 def qui_commence():
     global joueur_courant
     s=""
@@ -39,11 +39,20 @@ def qui_commence():
 
 #################################################
 #La Fonction afficher_grille renvoie une grille standard
+#Source du code http://fractale.gecif.net/python/puissance_4/
 def afficher_grille () :
     for i in range (6) :
         print (grille[i])
-
-
+         # affiche le repère des colonnes sous la grille :
+    print('\n 0  1  2  3  4  5  6')
+# La Fonction Grille_pleine 
+def grille_pleine():
+    b_plein=True
+    for i in range(6):
+        for j in range(7):
+            if grille[i][j]==0:
+                b_plein=False
+    return b_plein
 #################################################
 # Fonctions de sauvegarde et chargement de partie
 #################################################
@@ -54,7 +63,22 @@ def sauv () :
 
 def load () :
     """Charge la dernière partie enregistré"""
-
+    fic = open ("sauvegarde","r")
+    config = 
+    ligne = fic.readline()
+    n = int(ligne)
+    if n != N:
+        fic.close()
+        return config
+    i = j = 1
+    for ligne in fic:
+        config[i][j] = int(ligne)
+        j += 1
+        if j == N + 1:
+            j = 1
+            i += 1
+    fic.close()
+    return config
     return    
 ##################################################
 # Fonction d'annulation de coup
@@ -63,12 +87,12 @@ def cancel(self,row) :
     """Annule le dernier coup qui a été joué"""
     rank = 1
     while self.grid[rank][row] != 0:
-            rank += 1
-    rank = rank - 1
+            rank += 1/    rank = rank - 1
     self.grid[rank][row] = 0
 
 #################################################
 # Fonction dessiner grille 
+#Source du code http://fractale.gecif.net/python/puissance_4/
 #################################################
 def dessiner_grille () :
     turtle.up()
@@ -103,3 +127,53 @@ def dessiner_grille () :
 largeur=60
 x_base=-220
 y_base=-150
+
+# La fonction pions_alignes() teste si 4 pions de même couleur sont alignés dans la grille
+#Source du code http://fractale.gecif.net/python/puissance_4/
+def pions_alignes():
+    trouve=0
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # teste 4 pions alignés horizontalement en alanysant chacune des 6 lignes :
+    for i in range(6):
+        rouge=0
+        bleu=0
+        for j in range(7):
+            if grille[i][j]==1:
+                rouge+=1
+                bleu=0
+                if rouge>=4:
+                    trouve=1
+                    return trouve
+            elif grille[i][j]==2:
+                rouge=0
+                bleu+=1
+                if bleu>=4:
+                    trouve=2
+                    return trouve
+            else:
+                rouge=0
+                bleu=0
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # teste 4 pions alignés verticalement en alanysant chacune des 7 colonnes :
+    #Source du code http://fractale.gecif.net/python/puissance_4/
+    for j in range(7):
+        rouge=0
+        bleu=0
+        for i in range(6):
+            if grille[i][j]==1:
+                rouge+=1
+                bleu=0
+                if rouge>=4:
+                    trouve=1
+                    return trouve
+            elif grille[i][j]==2:
+                rouge=0
+                bleu+=1
+                if bleu>=4:
+                    trouve=2
+                    return trouve
+            else:
+                rouge=0
+                bleu=0
