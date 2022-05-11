@@ -5,6 +5,7 @@
 import tkinter as tk
 import os,random
 import turtle
+from turtle import *
 
 ############################
 # Constantes
@@ -120,15 +121,7 @@ def dessiner_grille () :
         turtle.goto(x_base+i*largeur+largeur//2,y_base-largeur//2)
         turtle.down()
         turtle.write(str(i))
-
-############################################################
-# Programme principal
-###########################################################
-largeur=60
-x_base=-220
-y_base=-150
-
-# La fonction pions_alignes() teste si 4 pions de même couleur sont alignés dans la grille
+        # La fonction pions_alignes() teste si 4 pions de même couleur sont alignés dans la grille
 #Source du code http://fractale.gecif.net/python/puissance_4/
 def pions_alignes():
     trouve=0
@@ -156,7 +149,7 @@ def pions_alignes():
                 bleu=0
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # teste 4 pions alignés verticalement en alanysant chacune des 7 colonnes :
+    # teste 4 pions alignés verticalement en analysant chacune des 7 colonnes :
     #Source du code http://fractale.gecif.net/python/puissance_4/
     for j in range(7):
         rouge=0
@@ -177,3 +170,58 @@ def pions_alignes():
             else:
                 rouge=0
                 bleu=0
+# ############################################################################
+# La fonction dessiner_grille() dessine une grille vide dans la fenêtre de la tortue
+def dessiner_grille():
+    turtle.up()
+    turtle.goto(x_base,y_base)
+    turtle.down()
+    # traits horizontaux :
+    for i in range(8):
+        turtle.forward(7*largeur)
+        turtle.up()
+        turtle.goto(x_base,y_base+i*largeur)
+        turtle.down()
+    # traits verticaux :
+    turtle.up()
+    turtle.goto(x_base,y_base)
+    turtle.setheading(90)
+    turtle.down()
+    for i in range(9):
+        turtle.forward(6*largeur)
+        turtle.up()
+        turtle.goto(x_base+i*largeur,y_base)
+        turtle.down()
+    # affiche le numéro des colonnes sous la grille :
+    for i in range(7):
+        turtle.up()
+        turtle.goto(x_base+i*largeur+largeur//2,y_base-largeur//2)
+        turtle.down()
+        turtle.write(str(i))
+        # ############################################################################
+# La fonction dessiner_pion(x,y,couleur) ajoute un pion dans la case (x,y)
+def dessiner_pion(x,y,couleur):
+    # x de 0 à 6 et y de 0 à 5
+    turtle.up()
+    turtle.goto(x_base+(x+1)*largeur-largeur//8,y_base+(y+1)*largeur-largeur//2)
+    turtle.down()
+    if couleur==1:
+        # pion ROUGE si couleur=1 :
+        turtle.color('red')
+    else:
+        # pion BLEU si couleur=2 :
+        turtle.color('blue')
+    turtle.begin_fill()
+    turtle.circle(largeur/2.5)
+    turtle.end_fill()
+############################################################
+# Programme principal
+###########################################################
+largeur=60
+x_base=-220
+y_base=-150
+turtle.setup(7*largeur+30, 430, 0, 0)
+turtle.speed(0)
+turtle.hideturtle()
+dessiner_grille()
+
