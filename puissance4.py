@@ -20,8 +20,7 @@ nb_colonnes = 7
 #Source du code http://fractale.gecif.net/python/puissance_4/
 """un 0 indique une case vide, un 1 un pion ROUGE et un 2 un BLEU"""
 grille=[7*[0], 7*[0], 7*[0], 7*[0], 7*[0], 7*[0]]
-"""nbr_colonnes mémorise le nombre de pions dans la colonne"""
-nbr_colonne=7*[0]
+
 """joueur_tour donne le prochain joueur qui va jouer 1 pour ROUGE et un 2 un BLEU"""
 joueur_tour = 1
 ################################
@@ -59,55 +58,7 @@ def grille_pleine():
                 b_plein=False
     return b_plein
 
-# ############################################################################
-# La fonction jouer() demande au joueur courant dans quelle colonne (de 0 à 6) il veut jouer
-#Source du code http://fractale.gecif.net/python/puissance_4/
-
-def jouer():
-    global joueur_courant
-    joueur=["ROUGE","BLEU"]
-    # La fonction tester_saisie renvoie forcément un chiffre entre 0 et 6 :
-    colonne=tester_saisie()
-    while tab_colonne[colonne]==6:
-        print('La colonne %d est pleine ! %s jouez dans une colonne non pleine' % (colonne,joueur[joueur_courant-1]))
-        colonne=tester_saisie()
-    grille[5-tab_colonne[colonne]][colonne]=joueur_courant
-    # dessine le pion sur la grille graphique :
-    dessiner_pion(colonne,tab_colonne[colonne],joueur_courant)
-    tab_colonne[colonne]+=1
-    print('\nLe joueur %s vient de jouer dans la colonne %d :' % (joueur[joueur_courant-1],colonne))
-#################################################
-# Fonction dessiner grille 
-#Source du code http://fractale.gecif.net/python/puissance_4/
-#################################################
-def dessiner_grille () :
-    turtle.up()
-    turtle.goto(x_base,y_base)
-    turtle.down()
-    # traits horizontaux :
-    for i in range(8):
-        turtle.fd(7*largeur)
-        turtle.up()
-        turtle.goto(x_base,y_base+i*largeur)
-        turtle.down()
-    # traits verticaux :
-    turtle.up()
-    turtle.goto(x_base,y_base)
-    turtle.setheading(90)
-    turtle.down()
-    for i in range(9):
-        turtle.forward(6*largeur)
-        turtle.up()
-        turtle.goto(x_base+i*largeur,y_base)
-        turtle.down()
-    # affiche le numéro des colonnes sous la grille :
-    for i in range(7):
-        turtle.up()
-        turtle.goto(x_base+i*largeur+largeur//2,y_base-largeur//2)
-        turtle.down()
-        turtle.write(str(i))
-    
-    # La fonction pions_alignes() teste si 4 pions de même couleur sont alignés dans la grille
+# La fonction pions_alignes() teste si 4 pions de même couleur sont alignés dans la grille
 #Source du code http://fractale.gecif.net/python/puissance_4/
 
 def pions_alignes():
@@ -508,62 +459,84 @@ def tester_saisie():
 # Fonction d'annulation de coup
 #################################################
 
+# ############################################################################
+# La fonction jouer() demande au joueur courant dans quelle colonne (de 0 à 6) il veut jouer
+#Source du code http://fractale.gecif.net/python/puissance_4/
+
+def jouer():
+    global joueur_courant
+    joueur=["ROUGE","BLEU"]
+    # La fonction tester_saisie renvoie forcément un chiffre entre 0 et 6 :
+    colonne=tester_saisie()
+    while tab_colonne[colonne]==6:
+        print('La colonne %d est pleine ! %s jouez dans une colonne non pleine' % (colonne,joueur[joueur_courant-1]))
+        colonne=tester_saisie()
+    grille[5-tab_colonne[colonne]][colonne]=joueur_courant
+    # dessine le pion sur la grille graphique :
+    dessiner_pion(colonne,tab_colonne[colonne],joueur_courant)
+    tab_colonne[colonne]+=1
+    print('\nLe joueur %s vient de jouer dans la colonne %d :' % (joueur[joueur_courant-1],colonne))
+    
+    
+
+ 
 
 # ############################################################################
 # La fonction dessiner_grille() dessine une grille vide dans la fenêtre de la tortue
+#Source du code http://fractale.gecif.net/python/puissance_4/
 def dessiner_grille():
-    turtle.up()
-    turtle.goto(x_base,y_base)
-    turtle.down()
+    up()
+    goto(x_base,y_base)
+    down()
     # traits horizontaux :
     for i in range(8):
-        turtle.forward(7*largeur)
-        turtle.up()
-        turtle.goto(x_base,y_base+i*largeur)
-        turtle.down()
+        forward(7*largeur)
+        up()
+        goto(x_base,y_base+i*largeur)
+        down()
     # traits verticaux :
-    turtle.up()
-    turtle.goto(x_base,y_base)
-    turtle.setheading(90)
-    turtle.down()
+    up()
+    goto(x_base,y_base)
+    setheading(90)
+    down()
     for i in range(9):
-        turtle.forward(6*largeur)
-        turtle.up()
-        turtle.goto(x_base+i*largeur,y_base)
-        turtle.down()
+        forward(6*largeur)
+        up()
+        goto(x_base+i*largeur,y_base)
+        down()
     # affiche le numéro des colonnes sous la grille :
     for i in range(7):
-        turtle.up()
-        turtle.goto(x_base+i*largeur+largeur//2,y_base-largeur//2)
-        turtle.down()
-        turtle.write(str(i))
+        up()
+        goto(x_base+i*largeur+largeur//2,y_base-largeur//2)
+        down()
+        write(str(i))
         # ############################################################################
 # La fonction dessiner_pion(x,y,couleur) ajoute un pion dans la case (x,y)
+#Source du code http://fractale.gecif.net/python/puissance_4/
 def dessiner_pion(x,y,couleur):
     # x de 0 à 6 et y de 0 à 5
-    turtle.up()
-    turtle.goto(x_base+(x+1)*largeur-largeur//8,y_base+(y+1)*largeur-largeur//2)
-    turtle.down()
+    up()
+    goto(x_base+(x+1)*largeur-largeur//8,y_base+(y+1)*largeur-largeur//2)
+    down()
     if couleur==1:
         # pion ROUGE si couleur=1 :
-        turtle.color('red')
+        color('red')
     else:
         # pion BLEU si couleur=2 :
-        turtle.color('blue')
-    turtle.begin_fill()
-    turtle.circle(largeur/2.5)
-    turtle.end_fill()
+        color('blue')
+    begin_fill()
+    circle(largeur/2.5)
+    end_fill()
 ############################################################
 # Programme principal
 ###########################################################
 largeur=60
 x_base=-220
 y_base=-150
-turtle.setup(7*largeur+30, 430, 0, 0)
-turtle.speed(0)
-turtle.hideturtle() 
+setup(7*largeur+30, 430, 0, 0)
+speed(0)
+hideturtle() 
 dessiner_grille()
-
 
 print('\n\n\n\n\n\n=============================================')
 print(' PUISSANCE 4 : NOUVELLE PARTIE')
@@ -575,6 +548,7 @@ print('Caractères particuliers à saisir à la place du numéro de la colonne �
 print('S : Sauvegarde la partie dans le fichier grille.txt')
 print('R : Restaure la partie à partir du fichier grille.txt')
 print('F : Fin du jeu (pour quitter le programme)')
+print ('A:Annule de dernier coup du fichier grille.txt')
 print('\nLe nom des joueurs sera ici ROUGE et BLEU.')
 if joueur_courant==1:
     print('Le joueur ROUGE commence.')
